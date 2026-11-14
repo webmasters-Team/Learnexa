@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <script>
+      (function() {
+        if (typeof window === 'undefined') return;
+        function isViteWsError(msg) {
+          if (!msg) return false;
+          var str = typeof msg === 'string' ? msg : (msg.message || String(msg));
+          return str.includes('[vite]') || str.includes('WebSocket') || str.includes('closed without opened');
+        }
+        var origConsoleError = console.error;
+        console.error = function() {
+          for (var i = 0; i < arguments.length; i++) {
+            if (isViteWsError(arguments[i])) return;
+          }
+          origConsoleError.apply(console, arguments);
+        };
+        var origConsoleWarn = console.warn;
+        console.warn = function() {
+          for (var i = 0; i < arguments.length; i++) {
+            if (isViteWsError(arguments[i])) return;
+          }
+          origConsoleWarn.apply(console, arguments);
+        };
+        window.addEventListener('unhandledrejection', function(e) {
+          if (isViteWsError(e ? e.reason : null)) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+          }
+        }, true);
+        window.addEventListener('error', function(e) {
+          if (isViteWsError(e ? e.message : null) || isViteWsError(e ? e.error : null)) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+          }
+        }, true);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Learnexa" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="https://ui-avatars.com/api/?name=LX&background=4f46e5&color=fff&bold=true&size=192" />
+    <title>Learnexa - Modern Online Learning Platform</title>
+    <script type="module" crossorigin src="/assets/index-shRL4E0N.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-sT7AZ6Jb.css">
+  </head>
+  <body class="bg-slate-950 text-slate-100 antialiased selection:bg-indigo-500 selection:text-white">
+    <div id="root"></div>
+  </body>
+</html>
+

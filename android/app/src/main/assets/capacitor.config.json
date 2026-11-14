@@ -1,0 +1,14 @@
+{
+	"appId": "com.learnexa.app",
+	"appName": "Learnexa AI Learning Platform",
+	"webDir": "dist",
+	"server": {
+		"url": "https://ais-pre-vpqae3ogfhlcusrnmnrlqs-705333533274.asia-east1.run.app",
+		"cleartext": true
+	},
+	"android": {
+		"allowMixedContent": true,
+		"captureInput": true,
+		"webContentsDebuggingEnabled": true
+	}
+}
